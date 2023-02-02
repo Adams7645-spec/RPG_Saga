@@ -43,11 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mechanics\Logger.cs" />
     <Compile Include="NPC\Archer.cs" />
-    <Compile Include="Character.cs" />
+    <Compile Include="Mechanics\Character.cs" />
     <Compile Include="NPC\Knight.cs" />
     <Compile Include="NPC\Mage.cs" />
-    <Compile Include="Game.cs" />
+    <Compile Include="Mechanics\Game.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -13,6 +13,7 @@ namespace RPG_Saga
             Console.SetWindowSize(40, 20);
             Console.ForegroundColor = ConsoleColor.Magenta;
             Random random = new Random();
+            int charIndex;
             string[] fantasyNames = { "King Sadon", "Squire Otis", "Earl Aunger", "Cardinal Fulco", "Duke Jake", "Bishop Owen" };
 
             //Тут хранятся экземпляры персонажей
@@ -52,8 +53,41 @@ namespace RPG_Saga
             {
                 nps[i].ShowInfo();
             }
-            //Сражение персонажей 
+            //Сражение персонажей (тест самого процесса)
+            for (charIndex = 0; charIndex < nps.Count; charIndex += 2)//Шаг charIndex в 2 единицы для имитации пар
+            {
+                while (nps[charIndex].Health > 0 || nps[charIndex+1].Health > 0)
+                {
+                    if (nps[charIndex].Health > 0)
+                    {
+                        if (random.Next(0, 100) >= 75)
+                        {
+                            nps[charIndex].CharAbility();
+                        }
+                        nps[charIndex].AttackEnemy(nps[charIndex], nps[charIndex+1]);
+                    }
+                    else
+                    {
+                        break;
+                    }
 
+                    if (nps[charIndex+1].Health > 0)
+                    {
+                        if (random.Next(0, 100) >= 75)
+                        {
+                            nps[charIndex+1].CharAbility();
+                        }
+                        nps[charIndex+1].AttackEnemy(nps[charIndex+1], nps[charIndex]);
+                    }
+                    else 
+                    { 
+                        break; 
+                    }
+
+                    nps[charIndex].ShowInfo();
+                    nps[charIndex+1].ShowInfo();
+                }
+            }
 
             Console.ReadLine();
         }

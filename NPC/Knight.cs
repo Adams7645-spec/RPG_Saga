@@ -13,15 +13,16 @@ namespace RPG_Saga
 
         public Knight(int strength, int health, string charName, string sword, string className)
         {
-            this.strength = strength;
-            this.health = health;
+            this.Strength = strength;
+            this.Health = health;
             this.sword = sword;
             this.className = className;
             this.charName = charName;
         }
+
         public override void CharAbility()
         {
-            abilityDamage = strength * 30 / 100;
+            abilityDamage = Strength * 30 / 100;
         }
 
         public override void ShowInfo()
@@ -29,9 +30,13 @@ namespace RPG_Saga
             Console.WriteLine($"Character name: {charName}\n" +
                   $"Class name: {className}\n" +
                   $"Sword: {sword}\n" +
-                  $"Strength: {strength}\n" +
+                  $"Strength: {Strength}\n" +
                   $"Ability damage: {abilityDamage}\n" +
-                  $"Health: {health}\n");
+                  $"Health: {Health}\n");
+        }
+        public override void AttackEnemy(Character ally, Character enemy)
+        {
+            throw new NotImplementedException();
         }
     }
 }
