@@ -13,20 +13,23 @@ namespace RPG_Saga
         double bonusDamage;
         bool isBuffed;
 
-        public Archer(int strength, int health, string charName, string bow, string className) : base(strength, health, charName, className)
+        public Archer(int strength, int health, string charName, string bow, string className)
         {
+            this.strength = strength;
+            this.health = health;
             this.bow = bow;
             this.className = className;
-            this.charName = fantasyNames[GetRandom.Next(fantasyNames.Length)];
+            this.charName = charName;
+            totalDamage = strength;
         }
         public override void CharAbility()
         {
             isBuffed = true;
-            if (isBuffed == true) 
+            if (isBuffed == true)
             { bonusDamage += 2; }
-            else 
+            else
             { bonusDamage = 0; }
-            this.totalDamage = strength + bonusDamage;
+            totalDamage = strength + bonusDamage;
         }
         public override void ShowInfo()
         {

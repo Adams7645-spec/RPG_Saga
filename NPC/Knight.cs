@@ -11,11 +11,13 @@ namespace RPG_Saga
         string sword;
         double abilityDamage;
 
-        public Knight(int strength, int health, string charName, string sword, string className) : base(strength, health, charName, className)
+        public Knight(int strength, int health, string charName, string sword, string className)
         {
+            this.strength = strength;
+            this.health = health;
             this.sword = sword;
             this.className = className;
-            this.charName = fantasyNames[GetRandom.Next(fantasyNames.Length)];
+            this.charName = charName;
         }
         public override void CharAbility()
         {
