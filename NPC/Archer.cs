@@ -18,14 +18,14 @@ namespace RPG_Saga
             this.Health = health;
             this.bow = bow;
             this.className = className;
-            this.charName = charName;
+            this.CharName = charName;
             TotalDamage = strength;
             isBuffed = false;
         }
 
         public override void ShowInfo()
         {
-            Console.WriteLine($"Character name: {charName}\n" +
+            Console.WriteLine($"Character name: {CharName}\n" +
                               $"Class name: {className}\n" +
                               $"Bow: {bow}\n" +
                               $"Total damage: {TotalDamage}\n" +
@@ -47,6 +47,10 @@ namespace RPG_Saga
             else
             { bonusDamage = 0; }
             TotalDamage = Strength + bonusDamage;
+        }
+
+        public override void AttackWithAbbility(Character ally, Character enemy)
+        {
         }
     }
 }

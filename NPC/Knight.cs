@@ -11,32 +11,40 @@ namespace RPG_Saga
         string sword;
         double abilityDamage;
 
+        public double AbilityDamage { get => abilityDamage; set => abilityDamage = value; }
+
         public Knight(int strength, int health, string charName, string sword, string className)
         {
             this.Strength = strength;
             this.Health = health;
             this.sword = sword;
             this.className = className;
-            this.charName = charName;
+            this.CharName = charName;
         }
 
         public override void CharAbility()
         {
-            abilityDamage = Strength * 30 / 100;
+            AbilityDamage = Strength * 30 / 100;
         }
 
         public override void ShowInfo()
         {
-            Console.WriteLine($"Character name: {charName}\n" +
+            Console.WriteLine($"Character name: {CharName}\n" +
                   $"Class name: {className}\n" +
                   $"Sword: {sword}\n" +
                   $"Strength: {Strength}\n" +
-                  $"Ability damage: {abilityDamage}\n" +
+                  $"Ability damage: {AbilityDamage}\n" +
                   $"Health: {Health}\n");
         }
         public override void AttackEnemy(Character ally, Character enemy)
         {
-            throw new NotImplementedException();
+            enemy.Health -= Convert.ToInt32(ally.TotalDamage);
+        }
+
+        public override void AttackWithAbbility(Character ally, Character enemy)
+        {
+            ally.CharAbility();
+            enemy.Health -= Convert.ToInt32(ally.TotalDamage);
         }
     }
 }

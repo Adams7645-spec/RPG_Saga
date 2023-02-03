@@ -11,15 +11,17 @@ namespace RPG_Saga
         private int strength;
         private int health;
         private double totalDamage;
-        protected string charName;
+        private string charName;
         protected string className;
 
         public int Health { get => health; set => health = value; }
         public int Strength { get => strength; set => strength = value; }
         public double TotalDamage { get => totalDamage; set => totalDamage = value; }
+        public string CharName { get => charName; set => charName = value; }
 
         abstract public void CharAbility();
         abstract public void ShowInfo();
         abstract public void AttackEnemy(Character ally, Character enemy);
+        abstract public void AttackWithAbbility(Character ally, Character enemy);
     }
 }
