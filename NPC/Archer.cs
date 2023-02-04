@@ -9,7 +9,6 @@ namespace RPG_Saga
     internal class Archer : Character
     {
         string bow;
-        double bonusDamage;
         bool isBuffed;
 
         public Archer(int strength, int health, string charName, string bow, string className)
@@ -30,7 +29,7 @@ namespace RPG_Saga
                               $"Bow: {bow}\n" +
                               $"Total damage: {TotalDamage}\n" +
                               $"Strength: {Strength}\n" +
-                              $"Bonus damage: {bonusDamage}\n" +
+                              $"Bonus damage: {AbilityDamage}\n" +
                               $"Is buffed: {isBuffed}\n" +
                               $"Health: {Health}\n");
         }
@@ -43,10 +42,10 @@ namespace RPG_Saga
         {
             isBuffed = true;
             if (isBuffed == true)
-            { bonusDamage += 5; }
+            { AbilityDamage += 5; }
             else
-            { bonusDamage = 0; }
-            TotalDamage = Strength + bonusDamage;
+            { AbilityDamage = 0; }
+            TotalDamage = Strength + AbilityDamage;
         }
 
         public override void AttackWithAbbility(Character ally, Character enemy)

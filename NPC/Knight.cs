@@ -9,9 +9,6 @@ namespace RPG_Saga
     internal class Knight : Character
     {
         string sword;
-        double abilityDamage;
-
-        public double AbilityDamage { get => abilityDamage; set => abilityDamage = value; }
 
         public Knight(int strength, int health, string charName, string sword, string className)
         {
@@ -20,6 +17,7 @@ namespace RPG_Saga
             this.sword = sword;
             this.className = className;
             this.CharName = charName;
+            TotalDamage = strength;
         }
 
         public override void CharAbility()
@@ -44,7 +42,7 @@ namespace RPG_Saga
         public override void AttackWithAbbility(Character ally, Character enemy)
         {
             ally.CharAbility();
-            enemy.Health -= Convert.ToInt32(ally.TotalDamage);
+            enemy.Health -= Convert.ToInt32(ally.AbilityDamage);
         }
     }
 }

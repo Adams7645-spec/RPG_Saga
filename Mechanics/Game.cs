@@ -57,7 +57,11 @@ namespace RPG_Saga
             //Сражение персонажей (тест самого процесса)
             for (charIndex = 0; charIndex < nps.Count; charIndex += 2)//Шаг charIndex в 2 единицы для имитации пар
             {
-                Console.WriteLine($"Новая пара соперников: {nps[charIndex].CharName} и {nps[charIndex + 1].CharName}");
+                Console.WriteLine("┌──────────────────────────────────────┐");
+                Console.WriteLine($"Новая пара соперников: {nps[charIndex].CharName} против {nps[charIndex + 1].CharName}\n" +
+                                  $"Сведения о соперниках: \n");
+                nps[charIndex].ShowInfo();
+                nps[charIndex + 1].ShowInfo();
                 counter = 0;
                 do
                 {
@@ -74,6 +78,7 @@ namespace RPG_Saga
                     }
                     else
                     {
+                        Console.WriteLine($"\n{nps[charIndex].CharName} погиб!\n");
                         break;
                     }
 
@@ -88,14 +93,16 @@ namespace RPG_Saga
                     }
                     else
                     {
+                        Console.WriteLine($"\n{nps[charIndex + 1].CharName} погиб!\n");
                         break;
                     }
 
                     Console.WriteLine($"─\nХод №{counter}\n─");
                     nps[charIndex].ShowInfo();
                     nps[charIndex + 1].ShowInfo();
-                    Console.WriteLine("└──────────────────────────────────────┘");
+                    Console.WriteLine("────────────────────────────────────────");
                 } while (nps[charIndex].Health > 0 || nps[charIndex + 1].Health > 0);
+                Console.WriteLine("└──────────────────────────────────────┘");
             }
 
             Console.ReadLine();
