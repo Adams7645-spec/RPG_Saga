@@ -11,15 +11,24 @@ namespace RPG_Saga
         private int strength;
         private int health;
         private double totalDamage;
+        private double defaultDamage;
         private double abilityDamage;
+        private double abilityProcChance;
+        private string abilityName;
         private string charName;
-        protected string className;
+        private string className;
+        private bool isAlive;
 
         public int Health { get => health; set => health = value; }
         public int Strength { get => strength; set => strength = value; }
         public double TotalDamage { get => totalDamage; set => totalDamage = value; }
         public string CharName { get => charName; set => charName = value; }
         public double AbilityDamage { get => abilityDamage; set => abilityDamage = value; }
+        public double DefaultDamage { get => defaultDamage; set => defaultDamage = value; }
+        public double AbilityProcChance { get => abilityProcChance; set => abilityProcChance = value; }
+        protected string ClassName { get => className; set => className = value; }
+        public string AbilityName { get => abilityName; set => abilityName = value; }
+        public bool IsAlive { get => isAlive; set => isAlive = value; }
 
         abstract public void CharAbility();
         abstract public void ShowInfo();

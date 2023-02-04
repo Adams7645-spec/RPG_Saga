@@ -15,28 +15,30 @@ namespace RPG_Saga
             this.Strength = strength;
             this.Health = health;
             this.sword = sword;
-            this.className = className;
+            this.ClassName = className;
             this.CharName = charName;
-            TotalDamage = strength;
+            DefaultDamage = strength;
+            IsAlive = true;
+            AbilityProcChance = 25;
+            AbilityName = "";
         }
-
-        public override void CharAbility()
-        {
-            AbilityDamage = Strength * 30 / 100;
-        }
-
         public override void ShowInfo()
         {
             Console.WriteLine($"Character name: {CharName}\n" +
-                  $"Class name: {className}\n" +
+                  $"Class name: {ClassName}\n" +
                   $"Sword: {sword}\n" +
                   $"Strength: {Strength}\n" +
                   $"Ability damage: {AbilityDamage}\n" +
                   $"Health: {Health}\n");
         }
+        public override void CharAbility()
+        {
+            AbilityName = "Vengeance Strike";
+            AbilityDamage = DefaultDamage + DefaultDamage * 30 / 100;
+        }
         public override void AttackEnemy(Character ally, Character enemy)
         {
-            enemy.Health -= Convert.ToInt32(ally.TotalDamage);
+            enemy.Health -= Convert.ToInt32(ally.DefaultDamage);
         }
 
         public override void AttackWithAbbility(Character ally, Character enemy)

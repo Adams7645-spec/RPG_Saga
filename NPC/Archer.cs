@@ -16,16 +16,20 @@ namespace RPG_Saga
             this.Strength = strength;
             this.Health = health;
             this.bow = bow;
-            this.className = className;
+            this.ClassName = className;
             this.CharName = charName;
-            TotalDamage = strength;
+            DefaultDamage = strength;
+            TotalDamage = DefaultDamage;
+            AbilityProcChance = 25;
+            AbilityName = "";
+            IsAlive = true;
             isBuffed = false;
         }
 
         public override void ShowInfo()
         {
             Console.WriteLine($"Character name: {CharName}\n" +
-                              $"Class name: {className}\n" +
+                              $"Class name: {ClassName}\n" +
                               $"Bow: {bow}\n" +
                               $"Total damage: {TotalDamage}\n" +
                               $"Strength: {Strength}\n" +
@@ -40,12 +44,17 @@ namespace RPG_Saga
         }
         public override void CharAbility()
         {
+            AbilityName = "Fiery fury";
             isBuffed = true;
             if (isBuffed == true)
-            { AbilityDamage += 5; }
+            { 
+                AbilityDamage += 15; 
+            }
             else
-            { AbilityDamage = 0; }
-            TotalDamage = Strength + AbilityDamage;
+            { 
+                AbilityDamage = 0; 
+            }
+            TotalDamage = DefaultDamage + AbilityDamage;
         }
 
         public override void AttackWithAbbility(Character ally, Character enemy)
