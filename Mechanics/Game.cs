@@ -24,9 +24,9 @@ namespace RPG_Saga
             int n = Convert.ToInt32(Console.ReadLine());
 
             //Запихиваем указанное кол-во персонажей в лист
-            for (int i = 0; i <= n; i++)
+            for (int i = 0; i < n; i++)
             {
-                Console.WriteLine($"\nВыберите класс персонажа №{i}: \n" +
+                Console.WriteLine($"\nВыберите класс персонажа №{i + 1}: \n" +
                                   $"1 - Archer\n" +
                                   $"2 - Knight\n" +
                                   $"3 - Mage (пока не работает)\n");
@@ -38,11 +38,11 @@ namespace RPG_Saga
                 {
                     case 1:
                         Console.Clear();
-                        nps.Add(new Archer(random.Next(15, 25), random.Next(80, 95), fantasyNames[random.Next(fantasyNames.Length)], "Daedalus", "Archer"));
+                        nps.Add(new Archer(random.Next(150, 250), random.Next(80, 95), fantasyNames[random.Next(fantasyNames.Length)], "Daedalus", "Archer"));
                         break;
                     case 2:
                         Console.Clear();
-                        nps.Add(new Knight(random.Next(15, 20), random.Next(90, 110), fantasyNames[random.Next(fantasyNames.Length)], "Excalibur", "Knight"));
+                        nps.Add(new Knight(random.Next(150, 200), random.Next(90, 110), fantasyNames[random.Next(fantasyNames.Length)], "Excalibur", "Knight"));
                         break;
                     default:
                         Console.Clear();
@@ -57,8 +57,9 @@ namespace RPG_Saga
             //}
 
             //Сражение персонажей (тест самого процесса)
-            //Зациклить до момента, пока длина листа не будет равна 1, погибшие персонажи удаляются из листа
-            while (nps.Count != 1) {
+            //Зациклить до момента, пока длина листа не будет равна 1, поверженные персонажи удаляются из листа
+            while (nps.Count != 1) 
+            {
                 //Шаг charIndex в 2 единицы для имитации пар
                 for (charIndex = 0; charIndex < nps.Count; charIndex += 2)
                 {
@@ -75,6 +76,8 @@ namespace RPG_Saga
                         counter++;
                         Console.WriteLine($"─\nХод №{counter}\n─");
 
+                        //Если персонаж имеет положительное HP, а цикл заканчивается, то происходит ошибка индекса персонажей
+                        //Если установить урон персонажей, который будет превышать максимальное HP, то баг пропадает
                         //Может атаковать пока жив
                         if (nps[charIndex].Health > 0)
                         {
@@ -86,19 +89,20 @@ namespace RPG_Saga
                             }
                             else
                             {
+                                Console.WriteLine($"\n{nps[charIndex].CharName} атакует { nps[charIndex + 1].CharName}\n");
                                 nps[charIndex].AttackEnemy(nps[charIndex], nps[charIndex + 1]);
                             }
                         }
                         else
                         {
                             Console.WriteLine($"{nps[charIndex].CharName} погиб!");
-                            //Удаление персонажа из листа
-                            //
-                            nps.Remove(nps[charIndex]);
+                            nps[charIndex].ShowInfo();//Для поиска бага с досрочным завершением цикла 
+                            nps[charIndex].IsAlive = false;
                             break;
                         }
 
-                        if (nps[charIndex + 1].Health > 0)//Может атаковать пока жив
+                        //Может атаковать пока жив
+                        if (nps[charIndex + 1].Health > 0)
                         {
                             if (random.Next(0, 100) <= nps[charIndex + 1].AbilityProcChance)
                             {
@@ -108,15 +112,15 @@ namespace RPG_Saga
                             }
                             else
                             {
+                                Console.WriteLine($"\n{nps[charIndex + 1].CharName} атакует { nps[charIndex].CharName}\n");
                                 nps[charIndex + 1].AttackEnemy(nps[charIndex + 1], nps[charIndex]);
                             }
                         }
                         else
                         {
                             Console.WriteLine($"{nps[charIndex + 1].CharName} погиб!");
-                            //Удаление персонажа из листа
-                            //
-                            nps.Remove(nps[charIndex + 1]);
+                            nps[charIndex + 1].ShowInfo();//Для поиска бага с досрочным завершением цикла 
+                            nps[charIndex + 1].IsAlive = false;
                             break;
                         }
 
@@ -128,9 +132,17 @@ namespace RPG_Saga
 
                     Console.WriteLine("\n└──────────────────────────────────────┘\n");
                 }
-                Console.WriteLine($"Победил {nps[0].CharName}");
-            }
 
+                //Удаляем поверженых соперников из листа
+                for (int charIndexDEL = 0; charIndexDEL < nps.Count; charIndexDEL++)
+                {
+                    if (nps[charIndexDEL].IsAlive == false)
+                    {
+                        nps.Remove(nps[charIndexDEL]);
+                    }
+                }
+            }
+            Console.WriteLine($"Победил {nps[0].CharName}");
             Console.ReadLine();
         }
     }
