@@ -24,9 +24,9 @@ namespace RPG_Saga
             int n = Convert.ToInt32(Console.ReadLine());
 
             //Запихиваем указанное кол-во персонажей в лист
-            for (int i = 0; i <= n; i++)
+            for (int i = 0; i < n; i++)
             {
-                Console.WriteLine($"\nВыберите класс персонажа №{i}: \n" +
+                Console.WriteLine($"\nВыберите класс персонажа №{i + 1}: \n" +
                                   $"1 - Archer\n" +
                                   $"2 - Knight\n" +
                                   $"3 - Mage (пока не работает)\n");
@@ -92,9 +92,7 @@ namespace RPG_Saga
                         else
                         {
                             Console.WriteLine($"{nps[charIndex].CharName} погиб!");
-                            //Удаление персонажа из листа
-                            //
-                            nps.Remove(nps[charIndex]);
+                            nps[charIndex].IsAlive = false;
                             break;
                         }
 
@@ -114,9 +112,7 @@ namespace RPG_Saga
                         else
                         {
                             Console.WriteLine($"{nps[charIndex + 1].CharName} погиб!");
-                            //Удаление персонажа из листа
-                            //
-                            nps.Remove(nps[charIndex + 1]);
+                            nps[charIndex + 1].IsAlive = false;
                             break;
                         }
 
@@ -128,9 +124,17 @@ namespace RPG_Saga
 
                     Console.WriteLine("\n└──────────────────────────────────────┘\n");
                 }
-                Console.WriteLine($"Победил {nps[0].CharName}");
-            }
 
+                //Удаляем поверженых соперников из листа
+                for (int charIndexDEL = 0; charIndexDEL < nps.Count; charIndexDEL++)
+                {
+                    if (nps[charIndexDEL].IsAlive == false)
+                    {
+                        nps.Remove(nps[charIndexDEL]);
+                    }
+                }
+            }
+            Console.WriteLine($"Победил {nps[0].CharName}");
             Console.ReadLine();
         }
     }
