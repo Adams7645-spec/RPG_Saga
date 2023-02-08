@@ -8,43 +8,36 @@ namespace RPG_Saga
 {
     internal class Knight : Character
     {
-        string sword;
+        Random random = new Random();
+        public Knight(int health, int strengh, string characterName) : base(health, strengh)
+        {
+            this.health = health;
+            this.strengh = strengh;
+            this.characterName = characterName;
 
-        public Knight(int strength, int health, string charName, string sword, string className)
-        {
-            this.Strength = strength;
-            this.Health = health;
-            this.sword = sword;
-            this.ClassName = className;
-            this.CharName = charName;
-            DefaultDamage = strength;
-            IsAlive = true;
-            AbilityProcChance = 25;
-            AbilityName = "";
+            className = "Knight";
         }
-        public override void ShowInfo()
+        public override void AttackEnemy(Character enemy)
         {
-            Console.WriteLine($"Character name: {CharName}\n" +
-                  $"Class name: {ClassName}\n" +
-                  $"Sword: {sword}\n" +
-                  $"Strength: {Strength}\n" +
-                  $"Ability damage: {AbilityDamage}\n" +
-                  $"Health: {Health}\n");
-        }
-        public override void CharAbility()
-        {
-            AbilityName = "Vengeance Strike";
-            AbilityDamage = DefaultDamage + DefaultDamage * 30 / 100;
-        }
-        public override void AttackEnemy(Character ally, Character enemy)
-        {
-            enemy.Health -= Convert.ToInt32(ally.DefaultDamage);
-        }
-
-        public override void AttackWithAbbility(Character ally, Character enemy)
-        {
-            ally.CharAbility();
-            enemy.Health -= Convert.ToInt32(ally.AbilityDamage);
+            if (statusBurn)
+            {
+                TakeDamage(burnDamage = 5);
+            }
+            if (statusStan)
+            {
+                return;
+            }
+            if (random.Next(100) >= 50)
+            {
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine($"{Info()} использует Удар Возмездия на {enemy.Info()}");
+                enemy.TakeDamage(strengh + strengh * 50 / 100);
+                Console.ResetColor();
+            }
+            else
+            {
+                base.AttackEnemy(enemy);
+            }
         }
     }
 }

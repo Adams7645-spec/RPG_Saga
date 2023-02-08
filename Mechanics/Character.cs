@@ -6,33 +6,53 @@ using System.Threading.Tasks;
 
 namespace RPG_Saga
 {
-    internal abstract class Character
+    internal class Character
     {
-        private int strength;
-        private int health;
-        private double totalDamage;
-        private double defaultDamage;
-        private double abilityDamage;
-        private double abilityProcChance;
-        private string abilityName;
-        private string charName;
-        private string className;
-        private bool isAlive;
+        protected int health;
+        protected int strengh;
+        protected int burnDamage;
 
-        public int Health { get => health; set => health = value; }
-        public int Strength { get => strength; set => strength = value; }
-        public double TotalDamage { get => totalDamage; set => totalDamage = value; }
-        public string CharName { get => charName; set => charName = value; }
-        public double AbilityDamage { get => abilityDamage; set => abilityDamage = value; }
-        public double DefaultDamage { get => defaultDamage; set => defaultDamage = value; }
-        public double AbilityProcChance { get => abilityProcChance; set => abilityProcChance = value; }
-        protected string ClassName { get => className; set => className = value; }
-        public string AbilityName { get => abilityName; set => abilityName = value; }
-        public bool IsAlive { get => isAlive; set => isAlive = value; }
+        protected string characterName;
+        protected string className;
 
-        abstract public void CharAbility();
-        abstract public void ShowInfo();
-        abstract public void AttackEnemy(Character ally, Character enemy);
-        abstract public void AttackWithAbbility(Character ally, Character enemy);
+        protected bool statusStan;
+        protected bool statusBurn;
+
+        public Character(int health, int strengh)
+        {
+            this.health = health;
+            this.strengh = strengh;
+
+
+            statusStan = false;
+            statusBurn = false;
+        }
+
+        public void Burn()
+        {
+            statusBurn = true;
+        }
+        public void Stan()
+        {
+            statusStan = true;
+        }
+        public virtual void AttackEnemy(Character enemy)
+        {
+            Console.WriteLine($"{Info()} атакует {enemy.Info()}");
+            enemy.TakeDamage(strengh);
+        }
+        public virtual void TakeDamage(int damage)
+        {
+            health -= damage;
+            Console.WriteLine($"{Info()} получает {damage} единиц урона\n");
+        }
+        public bool CheckDeath()
+        {
+            return health <= 0;
+        }
+        public string Info()
+        {
+            return $"[{className}] {characterName} [{health} HP]";
+        }
     }
 }
